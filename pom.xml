@@ -950,10 +950,10 @@
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
                                 <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>org.postgresql.Driver</driver>
-                                <url>jdbc:postgresql://localhost:5432/jhipster_samples</url>
+                                <url>jdbc:postgresql://localhost:5432/postgres</url>
                                 <defaultSchemaName></defaultSchemaName>
-                                <username>jhipster_samples</username>
-                                <password></password>
+                                <username>postgres</username>
+                                <password>postgres</password>
                                 <referenceUrl>hibernate:spring:com.mycompany.myapp.domain?dialect=tech.jhipster.domain.util.FixedPostgreSQL10Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</referenceUrl>
                                 <verbose>true</verbose>
                                 <logging>debug</logging>
