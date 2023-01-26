@@ -14,5 +14,23 @@ public class Seat implements Serializable {
     @JsonProperty("seat_name")
     private String seatName;
 
-    public Seat() {}
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getSeatName() {
+        return seatName;
+    }
+
+    public void setSeatName(String seatName) {
+        this.seatName = seatName;
+    }
 }

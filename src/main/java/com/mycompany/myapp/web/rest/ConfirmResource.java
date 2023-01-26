@@ -47,14 +47,16 @@ public class ConfirmResource {
 
     @PostMapping("/confirm")
     public ResponseEntity<ConfirmBody> createMainUser(@RequestBody ConfirmBody confirmBody) throws URISyntaxException {
-        // MainUser result = mainUserRepository.save(mainUser);
         System.out.println("-----result-----");
-        System.out.println(confirmBody.getUserName());
+        System.out.println(confirmBody.getMainUserName());
+        confirmBody.getSeats().stream().forEach(seat -> System.out.println(seat.getPersonName() + ":" + seat.getSeatName()));
         confirmBody.getSeats();
         System.out.println("-----result-----");
+
+        // return same data
         return ResponseEntity
-            .created(new URI("/api/main-users/" + confirmBody.getUserName()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, confirmBody.getUserName().toString()))
+            .created(new URI("/api/main-users/" + confirmBody.getMainUserName()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, confirmBody.getMainUserName().toString()))
             .body(confirmBody);
     }
     // /**
