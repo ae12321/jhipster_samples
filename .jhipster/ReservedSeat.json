@@ -1,0 +1,18 @@
+{
+  "changelogDate": "20230126133356",
+  "fields": [
+    {
+      "fieldName": "personName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "seatName",
+      "fieldType": "String"
+    }
+  ],
+  "name": "ReservedSeat",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}
