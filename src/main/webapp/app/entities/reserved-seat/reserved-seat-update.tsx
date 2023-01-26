@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IMainUser } from 'app/shared/model/main-user.model';
+import { getEntities as getMainUsers } from 'app/entities/main-user/main-user.reducer';
 import { IReservedSeat } from 'app/shared/model/reserved-seat.model';
 import { getEntity, updateEntity, createEntity, reset } from './reserved-seat.reducer';
 
@@ -19,6 +21,7 @@ export const ReservedSeatUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const mainUsers = useAppSelector(state => state.mainUser.entities);
   const reservedSeatEntity = useAppSelector(state => state.reservedSeat.entity);
   const loading = useAppSelector(state => state.reservedSeat.loading);
   const updating = useAppSelector(state => state.reservedSeat.updating);
@@ -34,6 +37,8 @@ export const ReservedSeatUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getMainUsers({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const ReservedSeatUpdate = () => {
     const entity = {
       ...reservedSeatEntity,
       ...values,
+      mainUser: mainUsers.find(it => it.id.toString() === values.mainUser.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const ReservedSeatUpdate = () => {
       ? {}
       : {
           ...reservedSeatEntity,
+          mainUser: reservedSeatEntity?.mainUser?.id,
         };
 
   return (
@@ -82,6 +89,17 @@ export const ReservedSeatUpdate = () => {
               ) : null}
               <ValidatedField label="Person Name" id="reserved-seat-personName" name="personName" data-cy="personName" type="text" />
               <ValidatedField label="Seat Name" id="reserved-seat-seatName" name="seatName" data-cy="seatName" type="text" />
+              <ValidatedField id="reserved-seat-mainUser" name="mainUser" data-cy="mainUser" label="Main User" type="select" required>
+                <option value="" key="0" />
+                {mainUsers
+                  ? mainUsers.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/reserved-seat" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

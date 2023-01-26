@@ -2,6 +2,7 @@ package com.mycompany.myapp.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * A ReservedSeat.
@@ -24,6 +25,10 @@ public class ReservedSeat implements Serializable {
 
     @Column(name = "seat_name")
     private String seatName;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    private MainUser mainUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -64,6 +69,19 @@ public class ReservedSeat implements Serializable {
 
     public void setSeatName(String seatName) {
         this.seatName = seatName;
+    }
+
+    public MainUser getMainUser() {
+        return this.mainUser;
+    }
+
+    public void setMainUser(MainUser mainUser) {
+        this.mainUser = mainUser;
+    }
+
+    public ReservedSeat mainUser(MainUser mainUser) {
+        this.setMainUser(mainUser);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

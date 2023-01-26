@@ -2,20 +2,29 @@ package com.mycompany.myapp.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.MainUser;
 import com.mycompany.myapp.domain.ReservedSeat;
 import com.mycompany.myapp.repository.ReservedSeatRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link ReservedSeatResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class ReservedSeatResourceIT {
@@ -44,6 +54,9 @@ class ReservedSeatResourceIT {
     @Autowired
     private ReservedSeatRepository reservedSeatRepository;
 
+    @Mock
+    private ReservedSeatRepository reservedSeatRepositoryMock;
+
     @Autowired
     private EntityManager em;
 
@@ -60,6 +73,16 @@ class ReservedSeatResourceIT {
      */
     public static ReservedSeat createEntity(EntityManager em) {
         ReservedSeat reservedSeat = new ReservedSeat().personName(DEFAULT_PERSON_NAME).seatName(DEFAULT_SEAT_NAME);
+        // Add required entity
+        MainUser mainUser;
+        if (TestUtil.findAll(em, MainUser.class).isEmpty()) {
+            mainUser = MainUserResourceIT.createEntity(em);
+            em.persist(mainUser);
+            em.flush();
+        } else {
+            mainUser = TestUtil.findAll(em, MainUser.class).get(0);
+        }
+        reservedSeat.setMainUser(mainUser);
         return reservedSeat;
     }
 
@@ -71,6 +94,16 @@ class ReservedSeatResourceIT {
      */
     public static ReservedSeat createUpdatedEntity(EntityManager em) {
         ReservedSeat reservedSeat = new ReservedSeat().personName(UPDATED_PERSON_NAME).seatName(UPDATED_SEAT_NAME);
+        // Add required entity
+        MainUser mainUser;
+        if (TestUtil.findAll(em, MainUser.class).isEmpty()) {
+            mainUser = MainUserResourceIT.createUpdatedEntity(em);
+            em.persist(mainUser);
+            em.flush();
+        } else {
+            mainUser = TestUtil.findAll(em, MainUser.class).get(0);
+        }
+        reservedSeat.setMainUser(mainUser);
         return reservedSeat;
     }
 
@@ -128,6 +161,23 @@ class ReservedSeatResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(reservedSeat.getId().intValue())))
             .andExpect(jsonPath("$.[*].personName").value(hasItem(DEFAULT_PERSON_NAME)))
             .andExpect(jsonPath("$.[*].seatName").value(hasItem(DEFAULT_SEAT_NAME)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllReservedSeatsWithEagerRelationshipsIsEnabled() throws Exception {
+        when(reservedSeatRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restReservedSeatMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(reservedSeatRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllReservedSeatsWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(reservedSeatRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restReservedSeatMockMvc.perform(get(ENTITY_API_URL + "?eagerload=false")).andExpect(status().isOk());
+        verify(reservedSeatRepositoryMock, times(1)).findAll(any(Pageable.class));
     }
 
     @Test

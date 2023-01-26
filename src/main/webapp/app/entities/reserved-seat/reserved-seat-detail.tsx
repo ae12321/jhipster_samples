@@ -36,6 +36,8 @@ export const ReservedSeatDetail = () => {
             <span id="seatName">Seat Name</span>
           </dt>
           <dd>{reservedSeatEntity.seatName}</dd>
+          <dt>Main User</dt>
+          <dd>{reservedSeatEntity.mainUser ? reservedSeatEntity.mainUser.name : ''}</dd>
         </dl>
         <Button tag={Link} to="/reserved-seat" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">戻る</span>

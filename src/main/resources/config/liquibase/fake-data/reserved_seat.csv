@@ -1,11 +1,11 @@
-id;person_name;seat_name
-1;コンゴ envisioneer quantifying;Account
-2;Associate solution-oriented Ergonomic;hacking Principal Optimized
-3;Chicken;山形県
-4;Unbranded;Peso Crest
-5;Health Focused;payment Handmade
-6;Streamlined models Mobility;deposit
-7;synergies Upgradable;mobile Buckinghamshire Grocery
-8;Soap plum Optimization;auxiliary fuchsia utilisation
-9;Specialist Rustic;Corners
-10;high-level Tasty;fuchsia
+id;person_name;seat_name;main_user_id
+1;コンゴ envisioneer quantifying;Account;1
+2;Associate solution-oriented Ergonomic;hacking Principal Optimized;2
+3;Chicken;山形県;3
+4;Unbranded;Peso Crest;4
+5;Health Focused;payment Handmade;5
+6;Streamlined models Mobility;deposit;6
+7;synergies Upgradable;mobile Buckinghamshire Grocery;7
+8;Soap plum Optimization;auxiliary fuchsia utilisation;8
+9;Specialist Rustic;Corners;9
+10;high-level Tasty;fuchsia;10

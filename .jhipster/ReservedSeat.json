@@ -13,6 +13,14 @@
   "name": "ReservedSeat",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "mainUser",
+      "relationshipName": "mainUser",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
   "service": "no"
 }
