@@ -1,3 +1,5 @@
+see .jhipster folder
+
 # jhipster_samples
 
 This application was generated using JHipster 7.9.3, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v7.9.3](https://www.jhipster.tech/documentation-archive/v7.9.3).
