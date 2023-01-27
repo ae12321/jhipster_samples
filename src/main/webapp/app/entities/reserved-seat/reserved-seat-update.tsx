@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IRepresentative } from 'app/shared/model/representative.model';
 import { getEntities as getRepresentatives } from 'app/entities/representative/representative.reducer';
+import { ISeat } from 'app/shared/model/seat.model';
+import { getEntities as getSeats } from 'app/entities/seat/seat.reducer';
 import { IReservedSeat } from 'app/shared/model/reserved-seat.model';
 import { getEntity, updateEntity, createEntity, reset } from './reserved-seat.reducer';
 
@@ -22,6 +24,7 @@ export const ReservedSeatUpdate = () => {
   const isNew = id === undefined;
 
   const representatives = useAppSelector(state => state.representative.entities);
+  const seats = useAppSelector(state => state.seat.entities);
   const reservedSeatEntity = useAppSelector(state => state.reservedSeat.entity);
   const loading = useAppSelector(state => state.reservedSeat.loading);
   const updating = useAppSelector(state => state.reservedSeat.updating);
@@ -39,6 +42,7 @@ export const ReservedSeatUpdate = () => {
     }
 
     dispatch(getRepresentatives({}));
+    dispatch(getSeats({}));
   }, []);
 
   useEffect(() => {
@@ -52,6 +56,7 @@ export const ReservedSeatUpdate = () => {
       ...reservedSeatEntity,
       ...values,
       representative: representatives.find(it => it.id.toString() === values.representative.toString()),
+      seat: seats.find(it => it.id.toString() === values.seat.toString()),
     };
 
     if (isNew) {
@@ -67,6 +72,7 @@ export const ReservedSeatUpdate = () => {
       : {
           ...reservedSeatEntity,
           representative: reservedSeatEntity?.representative?.id,
+          seat: reservedSeatEntity?.seat?.id,
         };
 
   return (
@@ -108,6 +114,17 @@ export const ReservedSeatUpdate = () => {
                 <option value="" key="0" />
                 {representatives
                   ? representatives.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
+              <ValidatedField id="reserved-seat-seat" name="seat" data-cy="seat" label="Seat" type="select" required>
+                <option value="" key="0" />
+                {seats
+                  ? seats.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

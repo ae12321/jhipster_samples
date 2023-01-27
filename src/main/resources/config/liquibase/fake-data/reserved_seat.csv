@@ -1,11 +1,11 @@
-id;name;representative_id
-1;コンゴ envisioneer quantifying;1
-2;Account;2
-3;Associate solution-oriented Ergonomic;3
-4;hacking Principal Optimized;4
-5;Chicken;5
-6;山形県;6
-7;Unbranded;7
-8;Peso Crest;8
-9;Health Focused;9
-10;payment Handmade;10
+id;name;representative_id;seat_id
+1;コンゴ envisioneer quantifying;1;1
+2;Account;2;2
+3;Associate solution-oriented Ergonomic;3;3
+4;hacking Principal Optimized;4;4
+5;Chicken;5;5
+6;山形県;6;6
+7;Unbranded;7;7
+8;Peso Crest;8;8
+9;Health Focused;9;9
+10;payment Handmade;10;10

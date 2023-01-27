@@ -17,6 +17,16 @@
       "relationshipName": "representative",
       "relationshipType": "many-to-one",
       "relationshipValidateRules": ["required"]
+    },
+    {
+      "id": false,
+      "otherEntityField": "id",
+      "otherEntityName": "seat",
+      "otherEntityRelationshipName": "reservedSeat",
+      "ownerSide": true,
+      "relationshipName": "seat",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": ["required"]
     }
   ],
   "service": "no"

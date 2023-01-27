@@ -13,5 +13,11 @@
                                  constraintName="fk_reserved_seat__representative_id"
                                  referencedColumnNames="id"
                                  referencedTableName="representative"/>
+
+        <addForeignKeyConstraint baseColumnNames="seat_id"
+                                 baseTableName="reserved_seat"
+                                 constraintName="fk_reserved_seat__seat_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="seat"/>
     </changeSet>
 </databaseChangeLog>
