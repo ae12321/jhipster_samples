@@ -25,6 +25,14 @@
   "name": "Seat",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "seatGroup",
+      "relationshipName": "seatGroup",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
   "service": "no"
 }

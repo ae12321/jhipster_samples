@@ -115,6 +115,9 @@ export const Seat = () => {
                 <th className="hand" onClick={sort('left')}>
                   Left <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  Seat Group <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -130,6 +133,7 @@ export const Seat = () => {
                   <td>{seat.canSit ? 'true' : 'false'}</td>
                   <td>{seat.top}</td>
                   <td>{seat.left}</td>
+                  <td>{seat.seatGroup ? <Link to={`/seat-group/${seat.seatGroup.id}`}>{seat.seatGroup.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/seat/${seat.id}`} color="info" size="sm" data-cy="entityDetailsButton">

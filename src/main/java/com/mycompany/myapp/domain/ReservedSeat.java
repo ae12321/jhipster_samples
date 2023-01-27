@@ -1,5 +1,6 @@
 package com.mycompany.myapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -28,6 +29,7 @@ public class ReservedSeat implements Serializable {
     @NotNull
     private Representative representative;
 
+    @JsonIgnoreProperties(value = { "seatGroup" }, allowSetters = true)
     @OneToOne(optional = false)
     @NotNull
     @JoinColumn(unique = true)

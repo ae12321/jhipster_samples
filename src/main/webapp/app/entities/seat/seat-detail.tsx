@@ -44,6 +44,8 @@ export const SeatDetail = () => {
             <span id="left">Left</span>
           </dt>
           <dd>{seatEntity.left}</dd>
+          <dt>Seat Group</dt>
+          <dd>{seatEntity.seatGroup ? seatEntity.seatGroup.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/seat" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">戻る</span>

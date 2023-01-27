@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { ISeatGroup } from 'app/shared/model/seat-group.model';
+import { getEntities as getSeatGroups } from 'app/entities/seat-group/seat-group.reducer';
 import { ISeat } from 'app/shared/model/seat.model';
 import { getEntity, updateEntity, createEntity, reset } from './seat.reducer';
 
@@ -19,6 +21,7 @@ export const SeatUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const seatGroups = useAppSelector(state => state.seatGroup.entities);
   const seatEntity = useAppSelector(state => state.seat.entity);
   const loading = useAppSelector(state => state.seat.loading);
   const updating = useAppSelector(state => state.seat.updating);
@@ -34,6 +37,8 @@ export const SeatUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getSeatGroups({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const SeatUpdate = () => {
     const entity = {
       ...seatEntity,
       ...values,
+      seatGroup: seatGroups.find(it => it.id.toString() === values.seatGroup.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const SeatUpdate = () => {
       ? {}
       : {
           ...seatEntity,
+          seatGroup: seatEntity?.seatGroup?.id,
         };
 
   return (
@@ -109,6 +116,17 @@ export const SeatUpdate = () => {
                   required: { value: true, message: 'This field is required.' },
                 }}
               />
+              <ValidatedField id="seat-seatGroup" name="seatGroup" data-cy="seatGroup" label="Seat Group" type="select" required>
+                <option value="" key="0" />
+                {seatGroups
+                  ? seatGroups.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/seat" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

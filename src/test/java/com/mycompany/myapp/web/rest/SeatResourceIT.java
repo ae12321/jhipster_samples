@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Seat;
+import com.mycompany.myapp.domain.SeatGroup;
 import com.mycompany.myapp.repository.SeatRepository;
 import java.util.List;
 import java.util.Random;
@@ -66,6 +67,16 @@ class SeatResourceIT {
      */
     public static Seat createEntity(EntityManager em) {
         Seat seat = new Seat().name(DEFAULT_NAME).canSit(DEFAULT_CAN_SIT).top(DEFAULT_TOP).left(DEFAULT_LEFT);
+        // Add required entity
+        SeatGroup seatGroup;
+        if (TestUtil.findAll(em, SeatGroup.class).isEmpty()) {
+            seatGroup = SeatGroupResourceIT.createEntity(em);
+            em.persist(seatGroup);
+            em.flush();
+        } else {
+            seatGroup = TestUtil.findAll(em, SeatGroup.class).get(0);
+        }
+        seat.setSeatGroup(seatGroup);
         return seat;
     }
 
@@ -77,6 +88,16 @@ class SeatResourceIT {
      */
     public static Seat createUpdatedEntity(EntityManager em) {
         Seat seat = new Seat().name(UPDATED_NAME).canSit(UPDATED_CAN_SIT).top(UPDATED_TOP).left(UPDATED_LEFT);
+        // Add required entity
+        SeatGroup seatGroup;
+        if (TestUtil.findAll(em, SeatGroup.class).isEmpty()) {
+            seatGroup = SeatGroupResourceIT.createUpdatedEntity(em);
+            em.persist(seatGroup);
+            em.flush();
+        } else {
+            seatGroup = TestUtil.findAll(em, SeatGroup.class).get(0);
+        }
+        seat.setSeatGroup(seatGroup);
         return seat;
     }
 

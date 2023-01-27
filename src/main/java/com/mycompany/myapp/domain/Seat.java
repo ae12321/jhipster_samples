@@ -36,6 +36,10 @@ public class Seat implements Serializable {
     @Column(name = "jhi_left", nullable = false)
     private String left;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private SeatGroup seatGroup;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -101,6 +105,19 @@ public class Seat implements Serializable {
 
     public void setLeft(String left) {
         this.left = left;
+    }
+
+    public SeatGroup getSeatGroup() {
+        return this.seatGroup;
+    }
+
+    public void setSeatGroup(SeatGroup seatGroup) {
+        this.seatGroup = seatGroup;
+    }
+
+    public Seat seatGroup(SeatGroup seatGroup) {
+        this.setSeatGroup(seatGroup);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
