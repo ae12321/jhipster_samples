@@ -20,13 +20,17 @@ type GuestStateType = {
   kana: string;
 };
 
+// TODO: validation of whether previous guest name/kana is filled
+// TODO: validation mail format check and output error
+// TODO: validation of whether previous guest name/kana is filled
 export const UserSelect = () => {
   const navigate = useNavigate();
 
   const [representative, setRepresentative] = useState<RepresentativeStateType>({ name: '', kana: '', mail: '' });
   const [guests, setGuests] = useState<GuestStateType[]>([{ name: representative.name, kana: representative.kana }]);
+  const [disabledNextStep, setDisabledNextStep] = useState(true);
 
-  useEffect(() => {
+  const outputs = () => {
     // display representative state
     console.log('representative: ' + representative.name + ':' + representative.kana + ':' + representative.mail);
     // display guests state
@@ -34,6 +38,32 @@ export const UserSelect = () => {
       console.log(`guest${i + 1}: ` + g.name + ':' + g.kana);
     });
     console.log('-----');
+  };
+
+  const validateInput = () => {
+    let emptyValueCount = 0;
+
+    Object.keys(representative).forEach(key => {
+      const value = representative[key];
+      if (value === null || value === undefined || value === '') {
+        emptyValueCount++;
+      }
+    });
+    guests.forEach((guest, index) => {
+      console.log(index, guest);
+      Object.keys(guest).forEach(key => {
+        const value = guest[key];
+        if (value === null || value === undefined || value === '') {
+          emptyValueCount++;
+        }
+      });
+    });
+
+    setDisabledNextStep(1 <= emptyValueCount);
+  };
+  useEffect(() => {
+    outputs();
+    validateInput();
   }, [representative, guests]);
 
   const handleChangeRepresentative = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +76,8 @@ export const UserSelect = () => {
   };
   const handleChangeGuest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newState = [...guests];
+    // key is value of name attribute
+
     newState[index][e.target.name] = e.target.value;
     setGuests(newState);
   };
@@ -58,6 +90,9 @@ export const UserSelect = () => {
     const newState = [...guests];
     newState.pop();
     setGuests(newState);
+  };
+  const handleNextStep = () => {
+    navigate('/seat-select');
   };
   return (
     <Container fluid>
@@ -126,80 +161,16 @@ export const UserSelect = () => {
           </Button>
         </Col>
       </Row>
+      <hr />
+      <Row>
+        <Col md={12}>
+          <Button color="info" style={{ width: '100%' }} onClick={handleNextStep} disabled={disabledNextStep}>
+            Next Step
+          </Button>
+        </Col>
+      </Row>
     </Container>
   );
 };
-
-// const a = (
-//   <>
-//     {/* representative */}
-
-//     <h2>Guest Info</h2>
-//     {/* guests */}
-//     {guests.forEach((guest, index) => {
-//       const guestheader = `guest${padStart(index.toString(), 2, '0')}`;
-
-//       return (
-//         <Card>
-//           <CardBody>
-//             <CardTitle>guestheader</CardTitle>
-//             <CardText>
-//               <Label for="representative_name">Name</Label>
-//               <Input id="representative_name" name="name" placeholder="taro yamada" type="text" onChange={handleChangeRepresentative} />
-//               <Label for="representative_kana">Kana</Label>
-//               <Input
-//                 id="representative_kana"
-//                 name="kana"
-//                 placeholder="taro yamada(kana)"
-//                 type="text"
-//                 onChange={handleChangeRepresentative}
-//               />
-//               <Label for="representative_mail">Email</Label>
-//               <Input id="representative_mail" name="mail" placeholder="aaa@bbb.com" type="email" onChange={handleChangeRepresentative} />
-//             </CardText>
-//           </CardBody>
-//         </Card>
-//       );
-//     })}
-//   </>
-// );
-
-// const GuestCard = ({ no }) => {
-//   const string = `guest${no}`;
-
-//   return (
-//     <Card>
-//       <CardBody>
-//         <CardTitle>{string} Info</CardTitle>
-//         <CardText>
-//           <Label for={string}>Name</Label>
-//           <Input id={`${string}_name`} name={`${string}_name`} placeholder="taro yamada" type="text" />
-//           <Label for={`${string}_kana`}>Kana</Label>
-//           <Input id={`${string}_kana`} name={`${string}_kana`} placeholder="taro yamada" type="text" />
-//         </CardText>
-//       </CardBody>
-//     </Card>
-//   );
-// };
-
-// const RepresentativeCard = () => {
-//   const string = `representative`;
-
-//   return (
-//     <Card>
-//       <CardBody>
-//         <CardTitle>{string} Info</CardTitle>
-//         <CardText>
-//           <Label for={string}>Name</Label>
-//           <Input id={`${string}_name`} name={`${string}_name`} placeholder="taro yamada" type="text" />
-//           <Label for={`${string}_kana`}>Kana</Label>
-//           <Input id={`${string}_kana`} name={`${string}_kana`} placeholder="taro yamada" type="text" />
-//           <Label for={`${string}_mail`}>Kana</Label>
-//           <Input id={`${string}_mail`} name={`${string}_mail`} placeholder="aaa@bbb.com" type="email" />
-//         </CardText>
-//       </CardBody>
-//     </Card>
-//   );
-// };
 
 export default UserSelect;
