@@ -1,0 +1,15 @@
+{
+  "changelogDate": "20230127092654",
+  "fields": [
+    {
+      "fieldName": "seatId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required", "unique"]
+    }
+  ],
+  "name": "SeatControl",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

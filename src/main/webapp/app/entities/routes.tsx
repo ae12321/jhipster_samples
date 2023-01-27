@@ -7,6 +7,7 @@ import Representative from './representative';
 import ReservedSeat from './reserved-seat';
 import Seat from './seat';
 import SeatGroup from './seat-group';
+import SeatControl from './seat-control';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -18,6 +19,7 @@ export default () => {
         <Route path="reserved-seat/*" element={<ReservedSeat />} />
         <Route path="seat/*" element={<Seat />} />
         <Route path="seat-group/*" element={<SeatGroup />} />
+        <Route path="seat-control/*" element={<SeatControl />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>
