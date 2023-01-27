@@ -3,7 +3,7 @@ import './home.scss';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Row, Col, Alert, Button } from 'reactstrap';
+import { Row, Col, Alert, Button, Container } from 'reactstrap';
 
 import { useAppSelector } from 'app/config/store';
 
@@ -15,18 +15,14 @@ export const Home = () => {
   };
 
   return (
-    <Row>
-      <Col md="12">
-        <h1>Home</h1>
-        <p>this page is home page.</p>
+    <Container fluid>
+      <h1>Home</h1>
+      <p>this page is home page.</p>
 
-        <hr />
-
-        <Button color="info" onClick={handleGotoPrivacyPolicy}>
-          go to privacy policy
-        </Button>
-      </Col>
-    </Row>
+      <Button color="info" onClick={handleGotoPrivacyPolicy}>
+        go to privacy policy
+      </Button>
+    </Container>
   );
 };
 
