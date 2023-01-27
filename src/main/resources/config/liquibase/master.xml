@@ -17,6 +17,7 @@
     <include file="config/liquibase/changelog/20230127092537_added_entity_SeatGroup.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20230127092654_added_entity_SeatControl.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230127091258_added_entity_constraints_ReservedSeat.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

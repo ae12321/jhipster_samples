@@ -8,6 +8,8 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IRepresentative } from 'app/shared/model/representative.model';
+import { getEntities as getRepresentatives } from 'app/entities/representative/representative.reducer';
 import { IReservedSeat } from 'app/shared/model/reserved-seat.model';
 import { getEntity, updateEntity, createEntity, reset } from './reserved-seat.reducer';
 
@@ -19,6 +21,7 @@ export const ReservedSeatUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const representatives = useAppSelector(state => state.representative.entities);
   const reservedSeatEntity = useAppSelector(state => state.reservedSeat.entity);
   const loading = useAppSelector(state => state.reservedSeat.loading);
   const updating = useAppSelector(state => state.reservedSeat.updating);
@@ -34,6 +37,8 @@ export const ReservedSeatUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
+
+    dispatch(getRepresentatives({}));
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ export const ReservedSeatUpdate = () => {
     const entity = {
       ...reservedSeatEntity,
       ...values,
+      representative: representatives.find(it => it.id.toString() === values.representative.toString()),
     };
 
     if (isNew) {
@@ -60,6 +66,7 @@ export const ReservedSeatUpdate = () => {
       ? {}
       : {
           ...reservedSeatEntity,
+          representative: reservedSeatEntity?.representative?.id,
         };
 
   return (
@@ -90,6 +97,24 @@ export const ReservedSeatUpdate = () => {
                   required: { value: true, message: 'This field is required.' },
                 }}
               />
+              <ValidatedField
+                id="reserved-seat-representative"
+                name="representative"
+                data-cy="representative"
+                label="Representative"
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {representatives
+                  ? representatives.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/reserved-seat" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

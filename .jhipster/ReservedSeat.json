@@ -10,6 +10,14 @@
   "name": "ReservedSeat",
   "pagination": "pagination",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "representative",
+      "relationshipName": "representative",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
   "service": "no"
 }

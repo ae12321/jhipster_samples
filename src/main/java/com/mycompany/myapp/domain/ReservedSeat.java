@@ -24,6 +24,10 @@ public class ReservedSeat implements Serializable {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @ManyToOne(optional = false)
+    @NotNull
+    private Representative representative;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -50,6 +54,19 @@ public class ReservedSeat implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Representative getRepresentative() {
+        return this.representative;
+    }
+
+    public void setRepresentative(Representative representative) {
+        this.representative = representative;
+    }
+
+    public ReservedSeat representative(Representative representative) {
+        this.setRepresentative(representative);
+        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

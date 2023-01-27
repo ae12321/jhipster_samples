@@ -106,6 +106,9 @@ export const ReservedSeat = () => {
                 <th className="hand" onClick={sort('name')}>
                   Name <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  Representative <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -118,6 +121,13 @@ export const ReservedSeat = () => {
                     </Button>
                   </td>
                   <td>{reservedSeat.name}</td>
+                  <td>
+                    {reservedSeat.representative ? (
+                      <Link to={`/representative/${reservedSeat.representative.id}`}>{reservedSeat.representative.id}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/reserved-seat/${reservedSeat.id}`} color="info" size="sm" data-cy="entityDetailsButton">

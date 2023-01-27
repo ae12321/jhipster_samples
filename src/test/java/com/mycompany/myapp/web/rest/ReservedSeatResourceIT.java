@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.Representative;
 import com.mycompany.myapp.domain.ReservedSeat;
 import com.mycompany.myapp.repository.ReservedSeatRepository;
 import java.util.List;
@@ -57,6 +58,16 @@ class ReservedSeatResourceIT {
      */
     public static ReservedSeat createEntity(EntityManager em) {
         ReservedSeat reservedSeat = new ReservedSeat().name(DEFAULT_NAME);
+        // Add required entity
+        Representative representative;
+        if (TestUtil.findAll(em, Representative.class).isEmpty()) {
+            representative = RepresentativeResourceIT.createEntity(em);
+            em.persist(representative);
+            em.flush();
+        } else {
+            representative = TestUtil.findAll(em, Representative.class).get(0);
+        }
+        reservedSeat.setRepresentative(representative);
         return reservedSeat;
     }
 
@@ -68,6 +79,16 @@ class ReservedSeatResourceIT {
      */
     public static ReservedSeat createUpdatedEntity(EntityManager em) {
         ReservedSeat reservedSeat = new ReservedSeat().name(UPDATED_NAME);
+        // Add required entity
+        Representative representative;
+        if (TestUtil.findAll(em, Representative.class).isEmpty()) {
+            representative = RepresentativeResourceIT.createUpdatedEntity(em);
+            em.persist(representative);
+            em.flush();
+        } else {
+            representative = TestUtil.findAll(em, Representative.class).get(0);
+        }
+        reservedSeat.setRepresentative(representative);
         return reservedSeat;
     }
 
