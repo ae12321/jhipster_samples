@@ -15,6 +15,7 @@ import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import Privacy from './modules/privacy/privacy';
+import UserSelect from './modules/user-select/user-select';
 
 const loading = <div>loading ...</div>;
 
@@ -34,7 +35,7 @@ const AppRoutes = () => {
       <ErrorBoundaryRoutes>
         <Route index element={<Home />} />
         <Route path="privacy" element={<Privacy />} />
-        {/* <Route path="login" element={<Login />} /> */}
+        <Route path="user-select" element={<UserSelect />} />
         {/* <Route path="logout" element={<Logout />} /> */}
         <Route path="account">
           {/* <Route

@@ -22,7 +22,7 @@ export const Privacy = () => {
 
   const handleNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    alert('clicked');
+    navigate('/user-select');
   };
 
   return (
