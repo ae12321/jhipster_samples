@@ -16,6 +16,7 @@ import PageNotFound from 'app/shared/error/page-not-found';
 import { AUTHORITIES } from 'app/config/constants';
 import Privacy from './modules/privacy/privacy';
 import UserSelect from './modules/user-select/user-select';
+import SeatSelect from './modules/seat-select/seat-select';
 
 const loading = <div>loading ...</div>;
 
@@ -36,6 +37,7 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="user-select" element={<UserSelect />} />
+        <Route path="seat-select" element={<SeatSelect />} />
         {/* <Route path="logout" element={<Logout />} /> */}
         <Route path="account">
           {/* <Route

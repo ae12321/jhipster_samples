@@ -1,0 +1,38 @@
+/* ==========================================================================
+Main page styles
+========================================================================== */
+.hipster {
+  display: inline-block;
+  width: 100%;
+  height: 497px;
+  background: url('../../../content/images/jhipster_family_member_1.svg') no-repeat center top;
+  background-size: contain;
+}
+
+.relative {
+  position: relative;
+  // background-color: #000;
+  // opacity: 0.5;
+}
+
+.seat {
+  position: absolute;
+  opacity: 0.8;
+  border-radius: 10px;
+  width: 45px;
+  height: 30px;
+  top: 14px;
+  left: 40px;
+  cursor: pointer;
+}
+
+.seat-cannot-select {
+  background-color: gray;
+  cursor: not-allowed;
+}
+.seat-selecting {
+  background-color: yellow;
+}
+.seat-can-select {
+  background-color: aqua;
+}
