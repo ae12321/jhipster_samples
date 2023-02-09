@@ -22,11 +22,11 @@ public class CallJcvApiService {
 
     public CallJcvApiService() {}
 
-    public DetectFaceOut detectFace(DetectFaceIn in) throws JsonProcessingException {
-        // public String detectFace(DetectFaceIn in) throws JsonProcessingException {
+    // public DetectFaceOut detectFace(DetectFaceIn in) throws JsonProcessingException {
+    public String detectFace(DetectFaceIn in) throws JsonProcessingException {
         // header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("content-type", "application/json;charset=utf-8");
+        headers.add("content-type", "application/json");
         headers.add("api-key", API_KEY);
         headers.add("accept", "application/json");
 
@@ -35,8 +35,8 @@ public class CallJcvApiService {
         HttpEntity<DetectFaceIn> entity = new HttpEntity<>(in, headers);
         RestTemplate restTemplate = new RestTemplate();
         //
-        ResponseEntity<DetectFaceOut> response = restTemplate.exchange(url, HttpMethod.POST, entity, DetectFaceOut.class);
-        // ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+        // ResponseEntity<DetectFaceOut> response = restTemplate.exchange(url, HttpMethod.POST, entity, DetectFaceOut.class);
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
         return response.getBody();
         // return restTemplate.postForObject(requestBody, DetectFaceOut.class);

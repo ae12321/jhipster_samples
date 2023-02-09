@@ -55,7 +55,7 @@ public class SampleResource {
     // throwsに指定できるのはURISyntaxException　のみ、
     // ほかは、BeanCreationExceptionやコネクションクローズのエラーになる
     @PostMapping("/face/detect")
-    public ResponseEntity<DetectFaceOut> sample01(@RequestBody DetectFaceClient client) throws URISyntaxException {
+    public ResponseEntity<String> sample01(@RequestBody DetectFaceClient client) throws URISyntaxException {
         DetectFaceIn in = new DetectFaceIn();
 
         // in check
@@ -67,7 +67,7 @@ public class SampleResource {
         }
 
         // request for jcv anysee
-        DetectFaceOut out = null;
+        String out = null;
         try {
             out = callJcvApiService.detectFace(in);
             System.out.println(out);
